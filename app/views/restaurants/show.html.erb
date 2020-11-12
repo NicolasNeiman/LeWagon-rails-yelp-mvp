@@ -1,14 +1,44 @@
-<h1>@restaurant.name</h1>
-
-<h2> Informations </h2>
-<p> @restaurant.address </p>
-<p> @restaurant.phone_number </p>
-<p> @restaurant.category </p>
-
-<h2>Comments</h2>
-<% @restaurant.review.each do |review| %>
-  <%= '⭐️' * review.rating %>
-  <%= review.content %>
-<% end %>
 
 
+<div class="container">
+
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Yelp</a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Back to All restaurants", restaurants_path %></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1> <%= @restaurant.name %> </h1>
+
+  <div class="informations">
+    <h2> Informations </h2>
+    <p> <strong> Address </strong>: <%= @restaurant.address %> </p>
+    <p> <strong> Phone </strong>: <%= @restaurant.phone_number %> </p>
+    <p> <strong> Style </strong> : <%= @restaurant.category %> </p>
+  </div>
+
+  <div class="comments">
+    <h2>Comments</h2>
+    <% @restaurant.reviews.each do |review| %>
+      <div class="comment">
+        <p> <%= '⭐️' * review.rating %> </p>
+        <p> <%= review.content %> </p>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="add-comment">
+    <h2>Add a comment </h2>
+    <%=  simple_form_for [@restaurant, @review] do |f|%>
+    <%= f.input :content %>
+    <%= f.input :rating %>
+    <%= f.submit %>
+    <% end %>
+  </div>
+</div>
